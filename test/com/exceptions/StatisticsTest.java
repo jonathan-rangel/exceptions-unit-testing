@@ -1,11 +1,9 @@
 package com.exceptions;
 
-import static org.junit.Assert.assertEquals;
-import src;
-
+import org.junit.Test;
 import java.util.List;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 public class StatisticsTest {
 
@@ -33,7 +31,7 @@ public class StatisticsTest {
     }
 
     @Test
-    public void given2StudentsAddedToAGroup_whenGetStudents_thenListHasTwoElements() {
+    public void given2StudentsAddedToAGroup_whenGetStudents_thenListHasTwoElements() throws GroupOccupancyExceededException{
         // Given:
         Student juan = new Student("Juan", "97249");
         Student ana = new Student("Ana", "98257");
@@ -51,7 +49,7 @@ public class StatisticsTest {
     }
 
     @Test(expected = GroupOccupancyExceededException.class)
-    public void givenOccupancyOf3_when4StudentsAdded_thenExceptionIsThrown() {
+    public void givenOccupancyOf3_when4StudentsAdded_thenExceptionIsThrown() throws GroupOccupancyExceededException{
         // Given:
         Student juan = new Student("Juan", "97249");
         Student ana = new Student("Ana", "98257");
@@ -70,7 +68,7 @@ public class StatisticsTest {
     }
 
     @Test(expected = GroupOccupancyExceededException.class)
-    public void givenOccupancyOf3_whenStudentsDuplicatedAdded_thenStudentIsNotDuplicatedOnGroup() {
+    public void givenOccupancyOf3_whenStudentsDuplicatedAdded_thenStudentIsNotDuplicatedOnGroup() throws GroupOccupancyExceededException {
         // Given:
         Student juan = new Student("Juan", "97249");
         Student ana = new Student("Ana", "98257");
@@ -91,7 +89,7 @@ public class StatisticsTest {
     }
 
     @Test
-    public void givenStudentsWithGrade_whenAverageIsRequested_thenAverageIsRetrieved() {
+    public void givenStudentsWithGrade_whenAverageIsRequested_thenAverageIsRetrieved() throws GroupOccupancyExceededException, MissedGradeException {
         // Given:
         Student juan = new Student("Juan", "97249");
         Student ana = new Student("Ana", "98257");
@@ -114,7 +112,7 @@ public class StatisticsTest {
     }
 
     @Test(expected = MissedGradeException.class)
-    public void givenNotAllStudentsWithGrade_whenAverageIsRequested_thenExceptionIsThrown() {
+    public void givenNotAllStudentsWithGrade_whenAverageIsRequested_thenExceptionIsThrown() throws GroupOccupancyExceededException, MissedGradeException{
         // Given:
         Student juan = new Student("Juan", "97249");
         Student ana = new Student("Ana", "98257");
