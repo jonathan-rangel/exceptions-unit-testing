@@ -1,17 +1,17 @@
 package com.exceptions;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class Group {
 
     private int maxOccupancy;
+    private Set<String> studentIds;
     private List<Student> students;
 
     public Group(int maxOccupancy) {
         this.maxOccupancy = maxOccupancy;
         students = new ArrayList<>();
+        studentIds = new HashSet<>();
     }
 
     public int getMaxOccupancy() {
@@ -19,8 +19,12 @@ public class Group {
     }
 
     public void add(Student student) throws GroupOccupancyExceededException {
+        if(studentIds.contains(student.getId()))
+            return;
+
         if(students.size() < maxOccupancy) {
             students.add(student);
+            studentIds.add(student.getId());
         }
         else {
             throw new GroupOccupancyExceededException();
@@ -36,13 +40,12 @@ public class Group {
     }
 
     public double getAverage() throws MissedGradeException {
-        int average = 0;
-        for (int i = 0; i < students.size(); i++) {
-
-            average += students.get(i).getGrade();
-            if(students.get(i).getGrade() == 0)
+        double average = 0;
+        for(Student student : students) {
+            if(student.getGrade() == null)
                 throw new MissedGradeException();
+            average += student.getGrade();
         }
-        return average/maxOccupancy;
+        return average / students.size();
     }
 }
